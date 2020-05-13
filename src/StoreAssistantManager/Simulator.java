@@ -464,7 +464,7 @@ public class Simulator {
 		// print the balance report to user
 		income = productBenefits - employeeCost - repairCost;
 		System.out.println("Today, your cost from employees is " + employeeCost + "; ");
-		System.out.println("Today, your cost from employees is " + repairCost + "; ");
+		System.out.println("Today, your cost from repairing is " + repairCost + "; ");
 		System.out.println("Today, your gross benefits of sold products is " + productBenefits + "; ");
 		System.out.println("Today, your gross income is " + income + ". ");
 		System.out.println("");
