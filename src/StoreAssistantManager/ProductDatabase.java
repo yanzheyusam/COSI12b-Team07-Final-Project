@@ -1,7 +1,7 @@
 
 /* The ProductDatabase stores Employee values */
 
-package src;
+package StoreAssistantManager;
 
 class ProduceDatabase implements Database {
 	

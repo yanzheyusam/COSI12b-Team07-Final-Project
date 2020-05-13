@@ -2,7 +2,7 @@
    containing the information of a product */
 
 
-package src;
+package StoreAssistantManager;
 
 
 public class Product {

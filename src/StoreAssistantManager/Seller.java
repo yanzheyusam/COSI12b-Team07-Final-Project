@@ -1,7 +1,7 @@
 /* The Seller class extends from the Employee class,
  * containing the information of a cashier */
 
-package src;
+package StoreAssistantManager;
 
 public class Seller extends Employee{
 	

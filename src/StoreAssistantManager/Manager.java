@@ -2,7 +2,7 @@
  * containing the information of a manager */
 
 
-package src;
+package StoreAssistantManager;
 
 public class Manager extends Employee{
 	

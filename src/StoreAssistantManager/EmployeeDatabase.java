@@ -1,7 +1,7 @@
 
 /* The EmployeeDatabase stores Employee values */
 
-package src;
+package StoreAssistantManager;
 
 public class EmployeeDatabase implements Database {
 	

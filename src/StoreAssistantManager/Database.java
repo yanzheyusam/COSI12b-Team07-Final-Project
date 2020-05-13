@@ -1,7 +1,7 @@
 
 /* The interface that holds outline for all kinds of Database */
 
-package src;
+package StoreAssistantManager;
 
 public interface Database {
 	

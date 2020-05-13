@@ -2,7 +2,7 @@
    containing the information of an employee */
 
 
-package src;
+package StoreAssistantManager;
 
 public class Employee {
 	public double salary;

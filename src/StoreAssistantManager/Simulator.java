@@ -1,20 +1,27 @@
 
-/* The Simulator class that manages the whole problem */
+/* The Simulator class that manages the whole problem. For the re-submission version, I add 
+ * a HashMap repairsList for Repairing Interface functions. */
 
 
-package src;
+package StoreAssistantManager;
 import java.io.*;
 import java.util.*;
+import java.util.HashMap;
 
 
 public class Simulator {
+	
 	public static EmployeeDatabase employeesDB;
 	public static ProduceDatabase productsDB;
+	
+	// create a HashMap for Repairing Interface
+	public static HashMap<String, Double> repairsList; 
 	
 	public static void main (String[] args) throws FileNotFoundException {
 		// initializing
 		employeesDB = new EmployeeDatabase();
 		productsDB = new ProduceDatabase();
+		repairsList = new HashMap<String, Double>(); //Initialize the HashMap
 		
 		Scanner console = new Scanner (System.in);
 		
@@ -26,6 +33,7 @@ public class Simulator {
 			System.out.println("Please choose one of the following:");
 			System.out.println("Employee Interface");
 			System.out.println("Product Interface");
+			System.out.println("Repairing Interface");
 			System.out.println("Open Your Store");
 			System.out.println("Exit");
 			System.out.println("");
@@ -41,6 +49,8 @@ public class Simulator {
 				ProductInterface(console);
 			} else if (action.equals("Open Your Store")) {
 				OpenStore(console);
+			} else if (action.equals("Repairing Interface")) {
+				RepairingInterface(console);
 			} 
 		}
 		
@@ -335,6 +345,84 @@ public class Simulator {
 	}
 	
 	/**
+	 * Repairing Interface
+	 * @param console the Scanner object
+	 */
+	public static void RepairingInterface(Scanner console) throws NullPointerException {
+		
+		String actionRepairing = "";
+		
+		// Repairing Interface
+		while(!actionRepairing.equals("Back")) {
+			// prompt the user to make decision 
+			System.out.println("Repairing Interface:");
+			//System.out.println("(To change the data of one employee, please delete his/her data first and then re-add.)");
+			System.out.println("Repairing List");
+			System.out.println("Add An Item To Repair");
+			System.out.println("Remove A Repaired Item");
+			System.out.println("Back");
+			System.out.println("");
+			
+			actionRepairing = console.nextLine();
+			if (actionRepairing.equals("Back")) {
+				break;
+			}
+			if(actionRepairing.equals("Repairing List")) {
+				RepairingList();
+			} else if(actionRepairing.equals("Add An Item To Repair")) {
+				addRepairing(console);
+			}else if (actionRepairing.equals("Remove A Repaired Item")) {
+				removeRepairing(console);
+			}
+
+		}
+	}
+	
+	/**
+	 * In the Repairing List, user can browse all items need to repair in the store. 
+	 * @param console the Scanner object
+	 */
+	public static void RepairingList()  {
+		System.out.println("All items need to repair in your store:");
+		// Print keys and values of HashMap
+		for (String i : repairsList.keySet()) {
+		  System.out.println("Name: " + i + " Cost: " + repairsList.get(i));
+		}
+		System.out.println();
+	}
+	
+	/**
+	 * In the Item Add Interface, user can add one new item need to repair to the Map 
+	 * @param console the Scanner object
+	 */
+	public static void addRepairing(Scanner console)  {
+		// prompt the user
+		System.out.println("What is the name of the item need to repair?");
+		String repairName = console.next();
+		System.out.println("What is the cost of that item to repair?");
+		String inputCost = console.next();
+		// convert the input designed salary into Double type
+		double repairCost = Double.valueOf(inputCost);
+		
+	    // Add keys and values to Map
+	    repairsList.put(repairName, repairCost);
+	}
+	
+	/**
+	 * In the Item Remove Interface, user can remove one repaired item from the Map 
+	 * @param console the Scanner object
+	 */
+	public static void removeRepairing(Scanner console)  {
+		//print out the list of items
+		RepairingList();
+		// prompt the user
+		System.out.println("What is the name of the REPAIRED item?");
+		String repairedName = console.next();
+	    // input keys and remove
+		repairsList.remove(repairedName);
+	}
+	
+	/**
 	 * After one day, compute the balance report for user
 	 * @return the total income
 	 */
@@ -343,6 +431,7 @@ public class Simulator {
 		double income = 0;
 		double employeeCost = 0;
 		double productBenefits = 0;
+		double repairCost = 0;
 		
 		// compute the cost from employees
 		Employee[] temp = employeesDB.copy();
@@ -351,6 +440,12 @@ public class Simulator {
 					double personSalary = temp[i].getSalary(); 
 					employeeCost += personSalary;
 			}
+		}
+		
+		// compute the cost from items need to repair
+		// add all item's cost
+		for (String i : repairsList.keySet()) {
+			repairCost += repairsList.get(i);
 		}
 		
 		String YN = "Yes";
@@ -367,8 +462,9 @@ public class Simulator {
 		}
 		
 		// print the balance report to user
-		income = productBenefits - employeeCost;
+		income = productBenefits - employeeCost - repairCost;
 		System.out.println("Today, your cost from employees is " + employeeCost + "; ");
+		System.out.println("Today, your cost from employees is " + repairCost + "; ");
 		System.out.println("Today, your gross benefits of sold products is " + productBenefits + "; ");
 		System.out.println("Today, your gross income is " + income + ". ");
 		System.out.println("");

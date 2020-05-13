@@ -1,19 +1,18 @@
-/* The Janitor class extends from the Employee class,
- * containing the information of a janitor */
+/* The Cashier class extends from the Employee class,
+ * containing the information of a cashier */
 
+package StoreAssistantManager;
 
-package src;
-
-public class Janitor extends Employee{
+public class Cashier extends Employee{
 	
 	/**
 	 * Constructor
 	 * @param initName the name of the employee
 	 * @param initStore the store that the employee works
 	 */
-	public Janitor(String initName, double initSalary) {
+	public Cashier(String initName, double initSalary) {
 		super(initName, initSalary);
-		position = "Janitor";
+		position = "Cashier";
 		salary = initSalary;
 	}
 	
@@ -23,6 +22,6 @@ public class Janitor extends Employee{
 	 * of the super class
 	 */
 	public String toString() {
-		return super.toString() + " Position: janitor.";
+		return super.toString() + " Position: cashier.";
 	}
 }
